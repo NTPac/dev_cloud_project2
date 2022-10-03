@@ -33,17 +33,17 @@ import { filterImageFromURL, deleteLocalFiles } from './util/util';
 
   app.get("/filteredimage", async (req, res) => {
     const data = req.query;
-    const img_URL = data.image_url;
+    const image_URL:string = data.image_url;
     try {
-      if (!img_URL || img_URL.match(/\.(jpeg|jpg|gif|png)$/) == null) {
+      if (!image_URL || image_URL.match(/\.(jpeg|jpg|gif|png)$/) == null) {
         console.error('url invalid');
         res.status(400).send('url invalid');
         return;
       }
-      let img = await filterImageFromURL(img_URL);
+      let image = await filterImageFromURL(image_URL);
       res.status(200)
-      res.sendFile(img);
-      res.on('finish', () => deleteLocalFiles([img]));
+      res.sendFile(image);
+      res.on('finish', () => deleteLocalFiles([image]));
       return;
     }
     catch(error){
